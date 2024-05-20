@@ -1,0 +1,25 @@
+name: Update GitHub Contribution Snake
+on:
+  schedule:
+    - cron: '0 * * * *' # Runs every hour
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Generate GitHub Contribution Snake
+        uses: Platane/snk@master
+        with:
+          github_user_name: Arunkumarxx
+          svg_out_path: README.md
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add README.md
+          git commit -m "Update GitHub Contribution Snake" -a
+          git push
